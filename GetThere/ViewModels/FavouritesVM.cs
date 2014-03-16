@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace stopsNearMe.ViewModels
+namespace GetThere.ViewModels
 {
     class FavouritesVM
     {

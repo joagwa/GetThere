@@ -7,8 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using stopsNearMe.Resources;
-using stopsNearMe.ViewModels;
+using GetThere.Resources;
+using GetThere.ViewModels;
 using System.IO.IsolatedStorage;
 using Windows.Devices.Geolocation;
 using System.Device.Location;
@@ -19,7 +19,6 @@ using Microsoft.Phone.Maps.Controls;
 using Windows.Networking.Proximity;
 using System.Globalization;
 using Windows.Storage;
-using Nokia.Phone.HereLaunchers;
 using Windows.Devices.Sensors;
 using Windows.Foundation;
 using Windows.UI.Core;
@@ -27,7 +26,7 @@ using System.Xml.Serialization;
 using Microsoft.Phone.Marketplace;
 
 
-namespace stopsNearMe
+namespace GetThere
 {
     public partial class MainPage : PhoneApplicationPage
     {
@@ -199,7 +198,7 @@ namespace stopsNearMe
             if (result == MessageBoxResult.OK)
             {
                 IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = true;
-                _trackingon = true;
+                //_trackingon = true;
             }
             else
             {
@@ -303,7 +302,7 @@ namespace stopsNearMe
             App.ViewModel.LoadData(ClosestStops, myLocation);
             if (MainLongListSelector.ItemsSource.Count > 0)
             {
-                walkingRoute(myLocation, ParseGeoCoordinate(((stopsNearMe.ViewModels.ItemViewModel)(MainLongListSelector.ItemsSource[0])).LineTwo.ToString()));
+                walkingRoute(myLocation, ParseGeoCoordinate(((GetThere.ViewModels.ItemViewModel)(MainLongListSelector.ItemsSource[0])).LineTwo.ToString()));
 
             }
         }
@@ -361,8 +360,7 @@ namespace stopsNearMe
 
         private void MarkStopsLocationsNew(List<Stop> ClosestStops)
         {
-            int maxStops = 100;
-            int i = 0;
+         //int maxStops = 100;
 
             foreach (Stop stop in ClosestStops)
             {
@@ -589,6 +587,7 @@ namespace stopsNearMe
             WalkingRouteQuery.Waypoints = MyCoordinates;
             WalkingRouteQuery.TravelMode = TravelMode.Walking;
             progressBar.Visibility = Visibility.Visible;
+            progressBar.FlowDirection = System.Windows.FlowDirection.LeftToRight;
             WalkingRouteQuery.QueryCompleted += WalkingRouteQuery_QueryCompleted;
             WalkingRouteQuery.QueryAsync();
         }
@@ -619,17 +618,18 @@ namespace stopsNearMe
             }
         }
 
-        private void LaunchNavigationApp(ItemViewModel selectedStop)
-        //Launches into default navigation app for walking directions
-        {
-            if (!selectedStop.LineTwo.Equals(null))
-            {
-                GuidanceWalkTask walkto = new GuidanceWalkTask();
-                walkto.Destination = ParseGeoCoordinate(selectedStop.LineTwo);
-                walkto.Title = selectedStop.LineOne;
-                walkto.Show();
-            }
-        }
+        //Having issues with HereLaunchers - The type '<class>' exists in both '<dll location>' and '<dll location 2>' - removed feature, will try and redo later
+        //private void LaunchNavigationApp(ItemViewModel selectedStop)
+        ////Launches into default navigation app for walking directions
+        //{
+        //    if (!selectedStop.LineTwo.Equals(null))
+        //    {
+        //        GuidanceWalkTask walkto = new GuidanceWalkTask();
+        //        walkto.Destination = ParseGeoCoordinate(selectedStop.LineTwo);
+        //        walkto.Title = selectedStop.LineOne;
+        //        walkto.Show();
+        //    }
+        //}
 
         private void MainLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

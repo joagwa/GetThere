@@ -1,6 +1,6 @@
-﻿using stopsNearMe.Resources;
+﻿using GetThere.Resources;
 
-namespace stopsNearMe
+namespace GetThere
 {
     /// <summary>
     /// Provides access to string resources.

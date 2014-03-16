@@ -6,14 +6,14 @@ using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using stopsNearMe.Resources;
-using stopsNearMe.ViewModels;
+using GetThere.Resources;
+using GetThere.ViewModels;
 using System.IO.IsolatedStorage;
 using System.Windows.Resources;
 using System.IO;
 using System.Device.Location;
 
-namespace stopsNearMe
+namespace GetThere
 {
     public partial class App : Application
     {
@@ -148,31 +148,33 @@ namespace stopsNearMe
 
             if (!isf.FileExists("brisbanetranslink.db"))
             {
-                StreamResourceInfo sri = App.GetResourceStream(new Uri(@"/stopsNearMe;component/Resources/brisbanetranslink.db", UriKind.Relative));
+                StreamResourceInfo sri = App.GetResourceStream(new Uri(@"/GetThere;component/Resources/brisbanetranslink.db", UriKind.Relative));
 
                 IsolatedStorageFileStream isfs = new IsolatedStorageFileStream("brisbanetranslink.db", FileMode.Create, IsolatedStorageFile.GetUserStoreForApplication());
-
+                if (!sri.Equals(null)) { 
                 long FileLength = (long)sri.Stream.Length;
                 byte[] byteInput = new byte[FileLength];
                 sri.Stream.Read(byteInput, 0, byteInput.Length);
                 isfs.Write(byteInput, 0, byteInput.Length);
-
                 sri.Stream.Close();
                 isfs.Close();
+                }
             }
             if (!isf.FileExists("adelaidemetro.db"))
             {
-                StreamResourceInfo sri = App.GetResourceStream(new Uri(@"/stopsNearMe;component/Resources/adelaidemetro.db", UriKind.Relative));
+                StreamResourceInfo sri = App.GetResourceStream(new Uri(@"/GetThere;component/Resources/adelaidemetro.db", UriKind.Relative));
 
                 IsolatedStorageFileStream isfs = new IsolatedStorageFileStream("adelaidemetro.db", FileMode.Create, IsolatedStorageFile.GetUserStoreForApplication());
+                if (!sri.Equals(null))
+                {
+                    long FileLength = (long)sri.Stream.Length;
+                    byte[] byteInput = new byte[FileLength];
+                    sri.Stream.Read(byteInput, 0, byteInput.Length);
+                    isfs.Write(byteInput, 0, byteInput.Length);
 
-                long FileLength = (long)sri.Stream.Length;
-                byte[] byteInput = new byte[FileLength];
-                sri.Stream.Read(byteInput, 0, byteInput.Length);
-                isfs.Write(byteInput, 0, byteInput.Length);
-
-                sri.Stream.Close();
-                isfs.Close();
+                    sri.Stream.Close();
+                    isfs.Close();
+                }
             } 
         }
 

@@ -8,9 +8,8 @@
     xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
     xmlns:UI="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     xmlns:tk="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    x:Class="stopsNearMe.MainPage"
+    x:Class="GetThere.MainPage"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -27,7 +26,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <Grid Grid.Row="0" Margin="12,-8,0,0">
-            <ProgressBar Name="progressBar" Margin="0,-10,0,10"/>
+            <ProgressBar Name="progressBar" VerticalAlignment="Top" Margin="0,50,0,0" Height="5"/>
             <TextBlock Text="GetThere" Style="{StaticResource PhoneTextTitle2Style }" VerticalAlignment="Top"/>
         </Grid>
 

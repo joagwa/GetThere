@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Device.Location;
 
-namespace stopsNearMe.ViewModels
+namespace GetThere.ViewModels
 {
     public class StopsData
     {

@@ -52,7 +52,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\x86\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;USE_WP8_NATIVE_SQLITE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -94,79 +94,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Haversine.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\internal\TaskBase.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Properties\AssemblyInfo.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\DirectionsRouteDestinationTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\ExploremapsExplorePlacesTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\ExploremapsSearchPlacesTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\ExploremapsShowMapTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\ExploremapsShowPlaceTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\GuidanceDriveTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\GuidanceWalkTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\PlacesShowDetailsByIdHrefTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\PlacesShowDetailsByLocationTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\PublicTransitRouteDestinationTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Tasks\PublicTransitSearchStopsTask.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Types\PlaceCategoryId.cs" />
-    <Compile Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Types\RouteMode.cs" />
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\DirectionsShowRoutePage.xaml.cs">
-      <DependentUpon>DirectionsShowRoutePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\DirectionsShowRouteToPage.xaml.cs">
-      <DependentUpon>DirectionsShowRouteToPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\ExplorePlacesPage.xaml.cs">
-      <DependentUpon>ExplorePlacesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\GuidanceDriveWalkPage.xaml.cs">
-      <DependentUpon>GuidanceDriveWalkPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\LatLongInput.cs" />
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\LocalizedStrings.cs" />
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\LocationSelectorPage.xaml.cs">
-      <DependentUpon>LocationSelectorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\PlacesShowByIDPage.xaml.cs">
-      <DependentUpon>PlacesShowByIDPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\PlacesShowByLocationPage.xaml.cs">
-      <DependentUpon>PlacesShowByLocationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\Properties\AssemblyInfo.cs" />
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\PublicTrasportShowJourneys.xaml.cs">
-      <DependentUpon>PublicTrasportShowJourneys.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\Resources\AppResources.Designer.cs" />
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\SearchPlacesPage.xaml.cs">
-      <DependentUpon>SearchPlacesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\ShowMapPage.xaml.cs">
-      <DependentUpon>ShowMapPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="here-launchers-master\Examples\FullDemo\FullDemo\ShowPlacePage.xaml.cs">
-      <DependentUpon>ShowPlacePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -195,58 +122,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\DirectionsShowRoutePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\DirectionsShowRouteToPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\ExplorePlacesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\GuidanceDriveWalkPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\LocationSelectorPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\PlacesShowByIDPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\PlacesShowByLocationPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\PublicTrasportShowJourneys.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\SearchPlacesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\ShowMapPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="here-launchers-master\Examples\FullDemo\FullDemo\ShowPlacePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -257,39 +132,35 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="here-launchers-master\DLL\HereLauncher\.gitignore" />
-    <None Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\ARM\Debug\HereLauncher.dll.lastcodeanalysissucceeded" />
-    <None Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="here-launchers-master\Examples\FullDemo\.gitignore" />
-    <None Include="here-launchers-master\Examples\FullDemo\FullDemo\packages.config" />
-    <None Include="here-launchers-master\Examples\FullDemo\packages\repositories.config" />
-    <None Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\WPtoolkit.4.2012.10.30.nupkg" />
-    <None Include="here-launchers-master\README.md" />
+    <None Include="Assets\Tiles\Thumbs.db" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="Resources\adelaidemetro.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\brisbanetranslink.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <None Include="Scripts\jquery-2.1.0.min.map" />
-    <None Include="sqlite-net-wp8-master\.gitattributes" />
-    <None Include="sqlite-net-wp8-master\.gitignore" />
-    <None Include="sqlite-net-wp8-master\README.md" />
-    <None Include="sqlite-net-wp8-master\sqlite-net-wp8.msbuild" />
-    <None Include="sqlite-net-wp8-master\sqlite-net-wp8.nuspec" />
-    <None Include="sqlite-net-wp8-master\sqlite-net-wp8.props" />
-    <None Include="sqlite-net-wp8-master\sqlite-net-wp8.targets" />
-    <None Include="sqlite-net-wp8-master\Sqlite.vcxproj" />
-    <None Include="sqlite-net-wp8-master\Sqlite.vcxproj.filters" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\appbar.check.png" />
+    <Content Include="Assets\Images\appbar.ferry.png" />
+    <Content Include="Assets\Images\appbar.location.circle.png" />
+    <Content Include="Assets\Images\appbar.location.round.png" />
+    <Content Include="Assets\Images\appbar.magnify.png" />
+    <Content Include="Assets\Images\appbar.pin.png" />
+    <Content Include="Assets\Images\appbar.share.png" />
+    <Content Include="Assets\Images\appbar.star.png" />
+    <Content Include="Assets\Images\appbar.train.png" />
+    <Content Include="Assets\Images\appbar.transit.bus.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -305,77 +176,10 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher.sln" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\ARM\Debug\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\ARM\Debug\HereLauncher.dll.CodeAnalysisLog.xml" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\ARM\Debug\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\ARM\Release\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\ARM\Release\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\Debug\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\Debug\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\x86\Debug\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\x86\Debug\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\x86\Release\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\Bin\x86\Release\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\HereLauncher.csproj" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\HereLauncher.csproj.user" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\HereLauncher.csproj.vspscc" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Debug\HereLauncher.csproj.FileListAbsolute.txt" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Debug\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Debug\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Release\HereLauncher.csproj.FileListAbsolute.txt" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Release\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Release\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\Debug\HereLauncher.csproj.FileListAbsolute.txt" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\Debug\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\Debug\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Debug\HereLauncher.csproj.FileListAbsolute.txt" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Debug\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Debug\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Release\HereLauncher.csproj.FileListAbsolute.txt" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Release\HereLauncher.dll" />
-    <Content Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Release\HereLauncher.pdb" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo.sln" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Assets\AlignmentGrid.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Assets\ApplicationIcon.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Assets\Tiles\FlipCycleTileLarge.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Assets\Tiles\FlipCycleTileMedium.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Assets\Tiles\FlipCycleTileSmall.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Assets\Tiles\IconicTileMediumLarge.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Assets\Tiles\IconicTileSmall.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\HereLauncherDemo.csproj" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Properties\AppManifest.xml" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Properties\WMAppManifest.xml" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\README_FIRST.txt" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Toolkit.Content\ApplicationBar.Check.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Toolkit.Content\ApplicationBar.Delete.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo\Toolkit.Content\ApplicationBar.Select.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\FullDemo_Release_ARM.xap" />
-    <Content Include="here-launchers-master\Examples\FullDemo\HereLauncherLib\Debug\HereLauncher.dll" />
-    <Content Include="here-launchers-master\Examples\FullDemo\HereLauncherLib\Release\HereLauncher.dll" />
-    <Content Include="here-launchers-master\Examples\FullDemo\Licence.txt" />
-    <Content Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\content\README_FIRST.txt" />
-    <Content Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\content\Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\content\Toolkit.Content\ApplicationBar.Check.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\content\Toolkit.Content\ApplicationBar.Delete.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\content\Toolkit.Content\ApplicationBar.Select.png" />
-    <Content Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\lib\sl3-wp\Microsoft.Phone.Controls.Toolkit.dll" />
-    <Content Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll" />
-    <Content Include="here-launchers-master\Examples\FullDemo\packages\WPtoolkit.4.2012.10.30\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll" />
-    <Content Include="here-launchers-master\libraries\Debug\HereLauncher.dll" />
-    <Content Include="here-launchers-master\libraries\Release\HereLauncher.dll" />
-    <Content Include="here-launchers-master\xap\FullDemo_Debug_AnyCPU.xap" />
-    <Content Include="here-launchers-master\xap\FullDemo_Release_AnyCPU.xap" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
-    <Content Include="sqlite-net-wp8-master\LICENSE.txt" />
-    <Content Include="sqlite-net-wp8-master\pch.cpp" />
-    <Content Include="sqlite-net-wp8-master\pch.h" />
-    <Content Include="sqlite-net-wp8-master\SqliteWP8.cpp" />
-    <Content Include="sqlite-net-wp8-master\SqliteWP8.h" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
@@ -383,7 +187,6 @@
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="here-launchers-master\Examples\FullDemo\FullDemo\Resources\AppResources.resx" />
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
@@ -392,22 +195,22 @@
   <ItemGroup>
     <Reference Include="Microsoft.Advertising.Mobile, Version=6.2.960.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Advertising.Mobile.UI, Version=6.2.960.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Debug\TempPE\" />
-    <Folder Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\ARM\Release\TempPE\" />
-    <Folder Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\Debug\TempPE\" />
-    <Folder Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Debug\TempPE\" />
-    <Folder Include="here-launchers-master\DLL\HereLauncher\HereLauncher\obj\x86\Release\TempPE\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <SDKReference Include="SQLite.WP80, Version=3.8.4.1">
       <Name>SQLite for Windows Phone</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="sqlite-net-wp8-master\Sqlite.vcxproj">
+      <Project>{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}</Project>
+      <Name>Sqlite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

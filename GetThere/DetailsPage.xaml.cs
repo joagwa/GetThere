@@ -7,10 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using stopsNearMe.Resources;
+using GetThere.Resources;
 using Microsoft.Phone.Tasks;
 
-namespace stopsNearMe
+namespace GetThere
 {
     public partial class DetailsPage : PhoneApplicationPage
     {

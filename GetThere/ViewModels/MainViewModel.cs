@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using stopsNearMe.Resources;
+using GetThere.Resources;
 using System.Device.Location;
 using HaversineFormula;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace stopsNearMe.ViewModels
+namespace GetThere.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
