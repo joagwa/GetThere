@@ -1,0 +1,76 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+    xmlns:UI="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
+    xmlns:tk="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    x:Class="stopsNearMe.MainPage"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <!--Data context is set to sample data above and LayoutRoot contains the root grid where all other page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <Grid Grid.Row="0" Margin="12,-8,0,0">
+            <ProgressBar Name="progressBar" Margin="0,-10,0,10"/>
+            <TextBlock Text="GetThere" Style="{StaticResource PhoneTextTitle2Style }" VerticalAlignment="Top"/>
+        </Grid>
+
+        <!--ContentPanel contains LongListSelector and LongListSelector ItemTemplate. Place additional content here-->
+        <!--<phone:Pivot>
+            <phone:PivotItem Header="Stops Near Me">-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,10,14,0">
+            <maps:Map x:Name="stopsMap" Height="349" VerticalAlignment="Top" 
+                      ZoomLevel="16.5" Tap="stopsMap_Tap" Hold="stopsMap_Hold" Margin="0,61,0,0"/>
+            <TextBlock x:Name="CurrentLocationText" VerticalAlignment="Top" Height="46" TextWrapping="Wrap" Margin="0,10,0,0"/>
+            <phone:LongListSelector x:Name="MainLongListSelector" Margin="0,410,-12,68" ItemsSource="{Binding Items}"  
+				Tap="MainLongListSelector_Tap" SelectionChanged="MainLongListSelector_SelectionChanged">
+                <phone:LongListSelector.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackPanel Margin="0,0,0,0" Height="Auto">
+                                <TextBlock  Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}" Height="39" />
+                                <TextBlock Text="{Binding LineFive}" TextWrapping="Wrap"  Style="{StaticResource PhoneTextNormalStyle}"/>
+                            </StackPanel>
+                            <Border Background="Transparent"/>
+                            <tk:ContextMenuService.ContextMenu>
+                                <tk:ContextMenu Name="StopMenu">
+                                    <tk:MenuItem Name="FavouriteButton" Header="Favourite" Click="FavouriteButton_Click"/>
+                                    <tk:MenuItem Name="NavigateToButton" Header="Navigate" Click="NavigateToButton_Click"/>
+                                </tk:ContextMenu>
+                            </tk:ContextMenuService.ContextMenu>
+                        </Grid>
+                    </DataTemplate>
+                </phone:LongListSelector.ItemTemplate>
+            </phone:LongListSelector>
+            <UI:AdControl Name="adBar" ApplicationId="2e54b96b-47d3-4cec-a39a-eaccb6bff7d4" AdUnitId="149740" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Width="320" Margin="0,582,0,0"/>
+        </Grid>
+        <!--</phone:PivotItem>
+            <phone:PivotItem Header="Favourites" >
+                <ListBox Name="FavouritesList">
+                    
+                </ListBox>
+            </phone:PivotItem>-->
+        <!--</phone:Pivot>-->
+        <Button Background="Black" x:Name="SearchButton" Content="+"  HorizontalAlignment="Left" Height="72" Margin="390,506,0,0" VerticalAlignment="Top" Width="80" 
+			Grid.Row="1"  Click="Search_Button_Click" Visibility="Collapsed"/>
+        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="72" Margin="12,506,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" 
+			Width="385"  LostFocus="SearchTextBox_LostFocus" Visibility="Collapsed"/>
+    </Grid>
+
+</phone:PhoneApplicationPage>
