@@ -12,11 +12,46 @@ using System.IO.IsolatedStorage;
 using System.Windows.Resources;
 using System.IO;
 using System.Device.Location;
+using Microsoft.Phone.Marketplace;
 
 namespace GetThere
 {
     public partial class App : Application
     {
+        private static LicenseInformation _licenseInfo = new LicenseInformation();
+        private static bool _isTrial = true;
+        public bool IsTrial
+        {
+            get
+            {
+                return _isTrial;
+            }
+        }
+
+        /// <summary>
+        /// Check the current license information for this application
+        /// </summary>
+        private void CheckLicense()
+        {
+            // When debugging, we want to simulate a trial mode experience. The following conditional allows us to set the _isTrial 
+            // property to simulate trial mode being on or off. 
+#if DEBUG
+            string message = "This sample demonstrates the implementation of a trial mode in an application." +
+                               "Press 'OK' to simulate trial mode. Press 'Cancel' to run the application in normal mode.";
+            if (MessageBox.Show(message, "Debug Trial",
+                 MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                _isTrial = true;
+            }
+            else
+            {
+                _isTrial = false;
+            }
+#else
+            _isTrial = _licenseInfo.IsTrial();
+#endif
+        }
+
         private static MainViewModel viewModel = null;
         GeoCoordinateWatcher myGeolocator = new GeoCoordinateWatcher(desiredAccuracy: GeoPositionAccuracy.High);
         GeoCoordinate myLocation = new GeoCoordinate();
@@ -176,6 +211,7 @@ namespace GetThere
                     isfs.Close();
                 }
             } 
+
         }
 
         // Code to execute when the application is activated (brought to foreground)

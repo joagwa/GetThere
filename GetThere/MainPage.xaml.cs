@@ -24,17 +24,20 @@ using Windows.Foundation;
 using Windows.UI.Core;
 using System.Xml.Serialization;
 using Microsoft.Phone.Marketplace;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Phone.Tasks;
 
 
 namespace GetThere
 {
     public partial class MainPage : PhoneApplicationPage
     {
+
+        
         //Enumerator references
         public enum DistanceType { Miles, Kilometers };
 
         //Variable declarations
-        bool _isTrial;
         bool _isRouteSearch = false;//flag to determine if route search is already being conducted
         public bool _trackingOn = true;//flag to determine if location tracking is on
         string myLocationAddress;//devices current location as a civic address
@@ -48,16 +51,18 @@ namespace GetThere
         //List object declarations
         List<Stop> ClosestStops = new List<Stop>();// list of stop objects
 
-        //funcational object declarations
+        //functional object declarations
         MapRoute MyMapRoute = null;//Map route object used to show walking directions
         ReverseGeocodeQuery MyReverseGeocodeQueryOrigin = new ReverseGeocodeQuery();//reverse geocode query object used to determine address based on GeoCoordinates
         GeocodeQuery MyGeocodeQuery = new GeocodeQuery();//Geocode query object to determine geocoordinates based on a civic address
         GeoCoordinateWatcher myGeolocator = new GeoCoordinateWatcher(desiredAccuracy: GeoPositionAccuracy.High);//Geolocator instance for location tracking
         GeoCoordinate myLocation = new GeoCoordinate();//Specified current location
         LicenseInformation licence = new LicenseInformation();
+        
 
         public MainPage()
         {
+
             InitializeComponent();
             ApplicationBar = new ApplicationBar();
 
@@ -80,8 +85,8 @@ namespace GetThere
             ApplicationBar.Buttons.Add(TransportMethodButton);
             DataContext = App.ViewModel;
             myGeolocator.MovementThreshold = 100;
-            //CreateFavouritesDatabase();
 
+            //Location Services
             ApplicationBarMenuItem LocationServices = new ApplicationBarMenuItem();
             if (!IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
             {
@@ -90,48 +95,54 @@ namespace GetThere
 
             if (IsolatedStorageSettings.ApplicationSettings["LocationConsent"].Equals(true))
             {
-                LocationServices.Text = "Location Services On";
+                LocationServices.Text = "Location Services is On";
                 _trackingOn = true;
             }
             else
             {
-                LocationServices.Text = "Location Services Off";
+                LocationServices.Text = "Location Services are Off";
                 _trackingOn = false;
 
             }
             LocationServices.Click += LocationServices_Click;
             ApplicationBar.MenuItems.Add(LocationServices);
+
+            //Privacy Policy
+            ApplicationBarMenuItem PrivacyPolicy = new ApplicationBarMenuItem();
+            PrivacyPolicy.Text = "Privacy Policy";
+            PrivacyPolicy.Click += PrivacyPolicy_Click;
+            ApplicationBar.MenuItems.Add(PrivacyPolicy);
+
+            //Remove Ads
+            ApplicationBarMenuItem RemoveAds = new ApplicationBarMenuItem();
+            RemoveAds.Text = "Remove Ads";
+            RemoveAds.Click += RemoveAds_Click;
+            
+            
+            if ((Application.Current as App).IsTrial)
+            {
+                if (ApplicationBar.MenuItems.Count == 2)
+                {
+                    ApplicationBar.MenuItems.Add(RemoveAds);
+                }
+            }
         }
 
-        void LocationServices_Click(object sender, EventArgs e)
-        {
-            ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
-            if (IsolatedStorageSettings.ApplicationSettings["LocationConsent"].Equals(true))
-            {
-                item.Text = "Location Services Off";
-                IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = false;
-                _trackingOn = false;
-            }
-            else
-            {
-                item.Text = "Location Services On";
-                IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = true;
-                MessageBoxResult LocationServicesAlert =
-                  MessageBox.Show("This app accesses your phone's location, but does not store it in any way."
-                + "You have enabled Location Services. Press this button again to disable",
-                  "Location",
-                  MessageBoxButton.OK);
-                _trackingOn = true;
-            }
-        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
+            if (ApplicationBar.MenuItems.Count == 3)
+            {
+                if (!(Application.Current as App).IsTrial)
+                {
+                    ApplicationBar.MenuItems.Remove(ApplicationBar.MenuItems[3]);
+                }
+            }
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData(ClosestStops, myLocation);
             }
-            _isTrial = licence.IsTrial();
-            if (!_isTrial)
+            if ((Application.Current as App).IsTrial)
             {
                 adBar.Visibility = Visibility.Collapsed;
             }
@@ -149,6 +160,11 @@ namespace GetThere
             CheckForLocationConsent();
             getLocation();
             stopsMap.Center = myLocation;
+            ApplicationBarMenuItem RemoveAds = new ApplicationBarMenuItem();
+            RemoveAds.Text = "Remove Ads";
+            RemoveAds.Click += RemoveAds_Click;
+           
+            
         }
 
         //////To come, favourites list, shows list of favourited stops for easy access. Walking distance and link to translink///
@@ -160,6 +176,7 @@ namespace GetThere
         //        FavouritesList.Items.Add(item.stop_name);
         //    }
         //}
+
         private async void CreateFavouritesDatabase()
         {
             // Here we check whether the database alredy exists
@@ -199,6 +216,7 @@ namespace GetThere
             {
                 IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = true;
                 //_trackingon = true;
+
             }
             else
             {
@@ -293,71 +311,30 @@ namespace GetThere
             }
             string sql = createStopSQL();
             ClosestStops = conn.QueryAsync<Stop>(sql).Result;
-            foreach (Stop stop in ClosestStops)
+            if (ClosestStops.Count > 0) 
             {
-                stop.distance = Distance(myLocation, new GeoCoordinate(stop.stop_lat, stop.stop_lon), DistanceType.Kilometers);
+                NoLocationsText.Visibility = System.Windows.Visibility.Collapsed;
+                foreach (Stop stop in ClosestStops)
+                {
+                    stop.distance = Distance(myLocation, new GeoCoordinate(stop.stop_lat, stop.stop_lon), DistanceType.Kilometers);
+                }
+                ClosestStops = ClosestStops.OrderBy(x => x.distance).ToList();
+                MarkStopsLocations(ClosestStops);
             }
-            ClosestStops = ClosestStops.OrderBy(x => x.distance).ToList();
-            MarkStopsLocations(ClosestStops);
+            else
+            {
+                ApplicationBarIconButton btn = (ApplicationBarIconButton)ApplicationBar.Buttons[2];
+                NoLocationsText.Text = string.Format("No {0} stops found near you.",btn.Text) ;
+                NoLocationsText.Visibility = System.Windows.Visibility.Visible;
+            }
             App.ViewModel.LoadData(ClosestStops, myLocation);
-            if (MainLongListSelector.ItemsSource.Count > 0)
-            {
-                walkingRoute(myLocation, ParseGeoCoordinate(((GetThere.ViewModels.ItemViewModel)(MainLongListSelector.ItemsSource[0])).LineTwo.ToString()));
+            //todo removed to see if it solves the multiple route issue
+            //if (MainLongListSelector.ItemsSource.Count > 0)
+            //{
+            //    walkingRoute(myLocation, ParseGeoCoordinate(((GetThere.ViewModels.ItemViewModel)(MainLongListSelector.ItemsSource[0])).LineTwo.ToString()));
 
-            }
+            //}
         }
-        private string getWalkingTime(Route WalkingRoute)
-        //returns estimated walking time from selected route
-        {
-            return WalkingRoute.EstimatedDuration.ToString();
-        }
-        private void myGeolocator_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
-        {
-            progressBar.Visibility = Visibility.Collapsed;
-            if (_trackingOn)
-            {
-                string lat = myLocation.Latitude.ToString();
-                string lon = myLocation.Longitude.ToString();
-                if (lat.Length >= 8 && lon.Length >= 8)
-                {
-                    lon = lon.Remove(8);
-                    lat = lat.Remove(8);
-                }
-
-                string lon2 = myGeolocator.Position.Location.Longitude.ToString();
-                string lat2 = myGeolocator.Position.Location.Latitude.ToString();
-                if (lat2.Length >= 8 && lon2.Length >= 8)
-                {
-                    lon2 = lon2.Remove(8);
-                    lat2 = lat2.Remove(8);
-                }
-
-                if (lon == lon2 && lat == lat2)
-                {
-                    return;
-                }
-                myLocation = myGeolocator.Position.Location;
-                GetLocationAddress(myLocation.Latitude, myLocation.Longitude);
-                stopsMap.Center = myLocation;
-                markUserLocation(myLocation);
-                conn = CreateDatabaseConnection();
-                getClosestStop(conn);
-            }
-        }
-        private void GetLocationAddress(double latitude, double longitude)
-        //Returns the users current location as a civic address
-        {
-            if (MyReverseGeocodeQueryOrigin == null || !MyReverseGeocodeQueryOrigin.IsBusy)
-            {
-                progressBar.Visibility = Visibility.Visible;
-                MyReverseGeocodeQueryOrigin = new ReverseGeocodeQuery();
-                MyReverseGeocodeQueryOrigin.GeoCoordinate = new GeoCoordinate(latitude, longitude);
-                MyReverseGeocodeQueryOrigin.QueryCompleted += CurrentLocationReverseGeocodeQuery_QC;
-                MyReverseGeocodeQueryOrigin.QueryAsync();
-
-            }
-        }
-
         private void MarkStopsLocationsNew(List<Stop> ClosestStops)
         {
          //int maxStops = 100;
@@ -395,7 +372,7 @@ namespace GetThere
         private void SearchForAddress()
         //Searches for address specified and returns GeoCoordinate
         {
-            progressBar.Visibility = System.Windows.Visibility.Visible;
+            //progressBar.Visibility = System.Windows.Visibility.Visible;
             if (!_isRouteSearch)
             {
                 SearchButton.Visibility = System.Windows.Visibility.Collapsed;
@@ -405,42 +382,6 @@ namespace GetThere
                 MyGeocodeQuery.QueryCompleted += GeocodeQuery_QueryCompleted;
                 MyGeocodeQuery.QueryAsync();
                 _isRouteSearch = true;
-            }
-        }
-        private void GeocodeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
-        {
-            progressBar.Visibility = System.Windows.Visibility.Collapsed;
-            if (e.Result.Count == 0)
-            {
-                MessageBox.Show("Your specified addres was not located. Please try again");
-                _isRouteSearch = false;
-            }
-            else
-            {
-                _trackingOn = false;
-                _isRouteSearch = false;
-                myLocation = ParseGeoCoordinate(e.Result.First().GeoCoordinate.ToString());
-                stopsMap.Center = myLocation;
-                markUserLocation(myLocation);
-                getClosestStop(conn);
-
-            }
-        }
-        private void CurrentLocationReverseGeocodeQuery_QC(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
-        {
-            progressBar.Visibility = Visibility.Collapsed;
-            if (e.Error == null)
-            {
-                if (e.Result.Count > 0)
-                {
-                    MapAddress address = e.Result[0].Information.Address;
-                    myLocationAddress = createAddressString(address);
-                    CurrentLocationText.Text = "You are currently at " + myLocationAddress;
-                    locationState = address.State.ToString();
-                    conn = CreateDatabaseConnection();
-                    getClosestStop(conn);
-                }
-
             }
         }
         private string createAddressString(MapAddress address)
@@ -571,12 +512,27 @@ namespace GetThere
 
             return new GeoCoordinate(latitude, longitude);
         }
+
+
+        //Events
+        private void GetLocationAddress(double latitude, double longitude)
+        //Returns the users current location as a civic address
+        {
+            if (MyReverseGeocodeQueryOrigin == null || !MyReverseGeocodeQueryOrigin.IsBusy)
+            {
+                //progressBar.Visibility = Visibility.Visible;
+                MyReverseGeocodeQueryOrigin = new ReverseGeocodeQuery();
+                MyReverseGeocodeQueryOrigin.GeoCoordinate = new GeoCoordinate(latitude, longitude);
+                MyReverseGeocodeQueryOrigin.QueryCompleted += CurrentLocationReverseGeocodeQuery_QC;
+                MyReverseGeocodeQueryOrigin.QueryAsync();
+
+            }
+        }
         void walkingRoute(GeoCoordinate currentLocation, GeoCoordinate stopLocation)
         //Get walking route from selected location to selected stop
         {
             if (MyMapRoute != null)
             {
-
                 stopsMap.RemoveRoute(MyMapRoute);
             }
             MarkStopsLocations(ClosestStops);
@@ -586,28 +542,134 @@ namespace GetThere
             RouteQuery WalkingRouteQuery = new RouteQuery();
             WalkingRouteQuery.Waypoints = MyCoordinates;
             WalkingRouteQuery.TravelMode = TravelMode.Walking;
-            progressBar.Visibility = Visibility.Visible;
+            //progressBar.Visibility = Visibility.Visible;
             progressBar.FlowDirection = System.Windows.FlowDirection.LeftToRight;
             WalkingRouteQuery.QueryCompleted += WalkingRouteQuery_QueryCompleted;
             WalkingRouteQuery.QueryAsync();
+        }
+        private string getWalkingTime(Route WalkingRoute)
+        //returns estimated walking time from selected route
+        {
+            return WalkingRoute.EstimatedDuration.ToString();
+        }
+        
+     
+        //Event Handlers
+        void PrivacyPolicy_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This app uses your location to provide contextual information relating to your current position. " +
+                "It does not store or transmit this information in any way. \r\n\r\n" +
+                "You can turn off location services within this app, however note that functionality will be reduced", "Privacy",
+                MessageBoxButton.OK);
+        }
+        void LocationServices_Click(object sender, EventArgs e)
+        {
+
+            ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
+            if (IsolatedStorageSettings.ApplicationSettings["LocationConsent"].Equals(true))
+            {
+                item.Text = "Location Services are Off";
+                IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = false;
+                _trackingOn = false;
+            }
+            else
+            {
+                item.Text = "Location Services is On";
+                IsolatedStorageSettings.ApplicationSettings["LocationConsent"] = true;
+                MessageBoxResult LocationServicesAlert =
+                  MessageBox.Show("This app accesses your phone's location, but does not store it in any way. "
+                + "You have enabled Location Services. Press this button again to disable",
+                  "Location",
+                  MessageBoxButton.OK);
+                _trackingOn = true;
+            }
+        }
+        private void myGeolocator_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        {
+            progressBar.Visibility = Visibility.Collapsed;
+            if (_trackingOn)
+            {
+                string lat = myLocation.Latitude.ToString();
+                string lon = myLocation.Longitude.ToString();
+                if (lat.Length >= 8 && lon.Length >= 8)
+                {
+                    lon = lon.Remove(8);
+                    lat = lat.Remove(8);
+                }
+
+                string lon2 = myGeolocator.Position.Location.Longitude.ToString();
+                string lat2 = myGeolocator.Position.Location.Latitude.ToString();
+                if (lat2.Length >= 8 && lon2.Length >= 8)
+                {
+                    lon2 = lon2.Remove(8);
+                    lat2 = lat2.Remove(8);
+                }
+
+                if (lon == lon2 && lat == lat2)
+                {
+                    return;
+                }
+                myLocation = myGeolocator.Position.Location;
+                GetLocationAddress(myLocation.Latitude, myLocation.Longitude);
+                stopsMap.Center = myLocation;
+                markUserLocation(myLocation);
+                conn = CreateDatabaseConnection();
+                getClosestStop(conn);
+            }
+        }
+        private void GeocodeQuery_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
+        {
+            progressBar.Visibility = System.Windows.Visibility.Collapsed;
+            if (e.Result.Count == 0)
+            {
+                MessageBox.Show("Your specified addres was not located. Please try again");
+                _isRouteSearch = false;
+            }
+            else
+            {
+                _trackingOn = false;
+                _isRouteSearch = false;
+                myLocation = ParseGeoCoordinate(e.Result.First().GeoCoordinate.ToString());
+                stopsMap.Center = myLocation;
+                markUserLocation(myLocation);
+                getClosestStop(conn);
+
+            }
+        }
+        private void CurrentLocationReverseGeocodeQuery_QC(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
+        {
+            progressBar.Visibility = Visibility.Collapsed;
+            if (e.Error == null)
+            {
+                if (e.Result.Count > 0)
+                {
+                    MapAddress address = e.Result[0].Information.Address;
+                    myLocationAddress = createAddressString(address);
+                    CurrentLocationText.Text = "You are currently at " + myLocationAddress;
+                    locationState = address.State.ToString();
+                    conn = CreateDatabaseConnection();
+                    getClosestStop(conn);
+                }
+            }
         }
         void WalkingRouteQuery_QueryCompleted(object sender, QueryCompletedEventArgs<Route> e)
         {
             progressBar.Visibility = Visibility.Collapsed;
             if (e.Result.Legs.Count() != 0)
             {
+                
                 Route MyRoute = e.Result;
                 MyMapRoute = new MapRoute(MyRoute);
                 MyMapRoute.Color = new SolidColorBrush((Color)Application.Current.Resources["PhoneAccentColor"]).Color;
                 stopsMap.AddRoute(MyMapRoute);
                 if (((ItemViewModel)(MainLongListSelector.SelectedItem)) == null)
                 {
-                    ((ItemViewModel)(MainLongListSelector.ItemsSource[0])).LineFive = Convert.ToInt16(e.Result.EstimatedDuration.TotalMinutes).ToString() + " minutes walk";
+                    ((ItemViewModel)(MainLongListSelector.ItemsSource[0])).LineFive = GetWalkTime(e); ;
 
                 }
                 else
                 {
-                    ((ItemViewModel)(MainLongListSelector.SelectedItem)).LineFive = Convert.ToInt16(e.Result.EstimatedDuration.TotalMinutes).ToString() + " minutes walk";
+                    ((ItemViewModel)(MainLongListSelector.ItemsSource[0])).LineFive = GetWalkTime(e);
 
                 }
 
@@ -617,7 +679,33 @@ namespace GetThere
                 MessageBox.Show("No walking routes available for chosen location. Please choose again");
             }
         }
+        void RemoveAds_Click(object sender, EventArgs e)
+        {
+            MarketplaceDetailTask marketplaceDetail = new MarketplaceDetailTask();
+            marketplaceDetail.Show();
+        }
+        private static string GetWalkTime(QueryCompletedEventArgs<Route> e)
+        {
+            string walkTime = "";
+            if (Convert.ToInt16(e.Result.EstimatedDuration.Days) > 0)
+            {
+                walkTime = walkTime + Convert.ToInt16(e.Result.EstimatedDuration.Days).ToString() + " Days, ";
 
+            }
+            if (Convert.ToInt16(e.Result.EstimatedDuration.Hours) > 0)
+            {
+                walkTime = walkTime + Convert.ToInt16(e.Result.EstimatedDuration.Hours).ToString() + " Hours, ";
+            }
+            if (Convert.ToInt16(e.Result.EstimatedDuration.Minutes) > 0)
+            {
+                walkTime = walkTime + Convert.ToInt16(e.Result.EstimatedDuration.Minutes).ToString() + " Minutes and ";
+            }
+            if (Convert.ToInt16(e.Result.EstimatedDuration.Seconds) > 0)
+            {
+                walkTime = walkTime + Convert.ToInt16(e.Result.EstimatedDuration.Seconds).ToString() + " Seconds walk";
+            }
+            return walkTime;
+        }
         //Having issues with HereLaunchers - The type '<class>' exists in both '<dll location>' and '<dll location 2>' - removed feature, will try and redo later
         //private void LaunchNavigationApp(ItemViewModel selectedStop)
         ////Launches into default navigation app for walking directions
@@ -630,7 +718,6 @@ namespace GetThere
         //        walkto.Show();
         //    }
         //}
-
         private void MainLongListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -640,7 +727,6 @@ namespace GetThere
             }
             StopsListCounter = 0;
         }
-
         private void MainLongListSelector_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         //on first tap, show route to selected stop. On second tap open timetable for stop.
         {
@@ -701,7 +787,10 @@ namespace GetThere
         private void Search_Button_Click(object sender, RoutedEventArgs e)
         //allows user to search for location
         {
-            SearchForAddress();
+            if (SearchTextBox.Text.Length != 0)
+            {
+                SearchForAddress();
+            }
         }
         void resetLocationButton_Click(object sender, EventArgs e)
         //reverts to location tracking
@@ -756,7 +845,6 @@ namespace GetThere
             SearchButton.Visibility = System.Windows.Visibility.Collapsed;
             SearchTextBox.Visibility = System.Windows.Visibility.Collapsed;
         }
-
         private void FavouriteButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Coming Soon!!!");

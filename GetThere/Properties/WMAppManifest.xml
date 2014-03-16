@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-AU" />
-  <App xmlns="" ProductID="{a935c5c7-a0d5-4fa5-bd8b-38230b5a4375}" Title="GetThere" RuntimeType="Silverlight" Version="1.0.0.4" Genre="apps.normal" Author="JOAGWA" Description="The only Transport app you need!" Publisher="JOAGWA" PublisherID="{bb54ad8c-a1ff-4f42-8563-59134c33860d}">
+  <App xmlns="" ProductID="{a935c5c7-a0d5-4fa5-bd8b-38230b5a4375}" Title="GetThere" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="JOAGWA" Description="The only Transport app you need!" Publisher="JOAGWA" PublisherID="{bb54ad8c-a1ff-4f42-8563-59134c33860d}">
     <IconPath IsRelative="true" IsResource="false">Assets\Tiles\getthere-logo.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
